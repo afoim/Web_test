@@ -5,47 +5,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Find AcoFork</title>
   <style>
+    :root {
+      --primary-color: #6200ea;
+      --text-color: #333;
+      --background-color: #f9f9f9;
+      --box-shadow: rgba(0, 0, 0, 0.1);
+    }
+
     body {
       font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
+      background-color: var(--background-color);
+      color: var(--text-color);
       margin: 0;
       padding: 0;
     }
+
     header {
       text-align: center;
       padding: 20px;
-      background-color: #6200ea;
+      background-color: var(--primary-color);
       color: white;
     }
+
     section {
       margin: 20px auto;
       max-width: 800px;
       background: white;
       padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 5px var(--box-shadow);
     }
+
     h2 {
       margin-top: 0;
     }
+
     ul {
       list-style: none;
       padding: 0;
     }
+
     li {
       margin: 10px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
     .link {
       text-decoration: none;
-      color: #6200ea;
+      color: var(--primary-color);
     }
+
     .speed {
       font-size: 0.9em;
       color: #666;
+    }
+
+    .loading {
+      text-align: center;
+      font-size: 1.2em;
+      margin-top: 50px;
+      color: var(--text-color);
     }
   </style>
 </head>
@@ -53,51 +74,28 @@
   <header>
     <h1 id="title">导航页</h1>
   </header>
-  <main id="content"></main>
+  <main id="content">
+    <p class="loading">加载中...</p>
+  </main>
 
   <script>
     async function fetchNavigationData() {
       try {
         const response = await fetch('data.json');
+        if (!response.ok) throw new Error(`HTTP 错误: ${response.status}`);
         const data = await response.json();
         renderNavigation(data);
       } catch (error) {
         console.error('加载导航数据失败:', error);
+        document.getElementById('content').innerHTML = '<p>导航数据加载失败，请稍后再试。</p>';
       }
     }
 
-    function renderNavigation(data) {
-      document.getElementById('title').innerText = data.title;
-      const content = document.getElementById('content');
-      data.sections.forEach(section => {
-        const sectionElement = document.createElement('section');
-        const header = document.createElement('h2');
-        header.innerText = section.name;
-        sectionElement.appendChild(header);
-
-        const list = document.createElement('ul');
-        section.links.forEach(link => {
-          const listItem = document.createElement('li');
-          const anchor = document.createElement('a');
-          anchor.href = link.url;
-          anchor.innerText = link.name;
-          anchor.className = 'link';
-          anchor.target = '_blank';
-
-          const speedSpan = document.createElement('span');
-          speedSpan.className = 'speed';
-          speedSpan.innerText = '测试中...';
-
-          listItem.appendChild(anchor);
-          listItem.appendChild(speedSpan);
-          list.appendChild(listItem);
-
-          testSpeed(link.url, speedSpan);
-        });
-
-        sectionElement.appendChild(list);
-        content.appendChild(sectionElement);
-      });
+    function createElement(tag, className, textContent = '') {
+      const element = document.createElement(tag);
+      if (className) element.className = className;
+      if (textContent) element.textContent = textContent;
+      return element;
     }
 
     async function testSpeed(url, element) {
@@ -107,9 +105,43 @@
         const endTime = performance.now();
         const duration = (endTime - startTime).toFixed(2);
         element.innerText = `${duration} ms`;
-      } catch {
+      } catch (error) {
+        console.error(`无法测试链接速度: ${url}`, error);
         element.innerText = '无法访问';
       }
+    }
+
+    async function renderNavigation(data) {
+      const content = document.getElementById('content');
+      content.innerHTML = ''; // 清空加载动画
+      const promises = [];
+
+      data.sections.forEach(section => {
+        const sectionElement = createElement('section');
+        const header = createElement('h2', '', section.name);
+        sectionElement.appendChild(header);
+
+        const list = createElement('ul');
+        section.links.forEach(link => {
+          const listItem = createElement('li');
+          const anchor = createElement('a', 'link', link.name);
+          anchor.href = link.url;
+          anchor.target = '_blank';
+          anchor.rel = 'noopener noreferrer';
+
+          const speedSpan = createElement('span', 'speed', '测试中...');
+          listItem.appendChild(anchor);
+          listItem.appendChild(speedSpan);
+          list.appendChild(listItem);
+
+          promises.push(testSpeed(link.url, speedSpan));
+        });
+
+        sectionElement.appendChild(list);
+        content.appendChild(sectionElement);
+      });
+
+      await Promise.all(promises); // 等待所有测速完成
     }
 
     fetchNavigationData();

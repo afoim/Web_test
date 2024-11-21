@@ -20,7 +20,7 @@
       {
         "name": "随机图",
         "links": [
-          { "name": "门户页面", "url": "https://pic.acofork.vus.kg" },
+          { "name": "门户页面", "url": "https://pic.acofork.us.kg" },
           { "name": "横屏 API", "url": "https://hrandom-pic.acofork.us.kg" },
           { "name": "竖屏 API", "url": "https://vrandom-pic.acofork.us.kg" },
           { "name": "横屏数量 API", "url": "https://api-hrandom-pic.acofork.us.kg" },
