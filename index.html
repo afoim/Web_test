@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find AcoFork</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: #6200ea;
+      color: white;
+    }
+    section {
+      margin: 20px auto;
+      max-width: 800px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      margin-top: 0;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .link {
+      text-decoration: none;
+      color: #6200ea;
+    }
+    .speed {
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="title">导航页</h1>
+  </header>
+  <main id="content"></main>
+
+  <script>
+    async function fetchNavigationData() {
+      try {
+        const response = await fetch('data.json');
+        const data = await response.json();
+        renderNavigation(data);
+      } catch (error) {
+        console.error('加载导航数据失败:', error);
+      }
+    }
+
+    function renderNavigation(data) {
+      document.getElementById('title').innerText = data.title;
+      const content = document.getElementById('content');
+      data.sections.forEach(section => {
+        const sectionElement = document.createElement('section');
+        const header = document.createElement('h2');
+        header.innerText = section.name;
+        sectionElement.appendChild(header);
+
+        const list = document.createElement('ul');
+        section.links.forEach(link => {
+          const listItem = document.createElement('li');
+          const anchor = document.createElement('a');
+          anchor.href = link.url;
+          anchor.innerText = link.name;
+          anchor.className = 'link';
+          anchor.target = '_blank';
+
+          const speedSpan = document.createElement('span');
+          speedSpan.className = 'speed';
+          speedSpan.innerText = '测试中...';
+
+          listItem.appendChild(anchor);
+          listItem.appendChild(speedSpan);
+          list.appendChild(listItem);
+
+          testSpeed(link.url, speedSpan);
+        });
+
+        sectionElement.appendChild(list);
+        content.appendChild(sectionElement);
+      });
+    }
+
+    async function testSpeed(url, element) {
+      const startTime = performance.now();
+      try {
+        await fetch(url, { method: 'HEAD', mode: 'no-cors' });
+        const endTime = performance.now();
+        const duration = (endTime - startTime).toFixed(2);
+        element.innerText = `${duration} ms`;
+      } catch {
+        element.innerText = '无法访问';
+      }
+    }
+
+    fetchNavigationData();
+  </script>
+</body>
+</html>

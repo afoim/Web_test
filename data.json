@@ -1,0 +1,45 @@
+{
+    "title": "Find AcoFork",
+    "sections": [
+      {
+        "name": "博客",
+        "links": [
+          { "name": "Cloudflare Pages", "url": "https://acofork.us.kg" },
+          { "name": "Fleek", "url": "https://fleek-blog.acofork.us.kg" },
+          { "name": "Vercel", "url": "https://vercel-blog.acofork.us.kg" },
+          { "name": "Github Pages", "url": "https://github-blog.acofork.us.kg" }
+        ]
+      },
+      {
+        "name": "网盘",
+        "links": [
+          { "name": "https://alist.acofork.us.kg", "url": "https://alist.acofork.us.kg" }
+        ]
+      },
+      {
+        "name": "随机图",
+        "links": [
+          { "name": "https://pic.acofork.us.kg", "url": "https://pic.acofork.us.kg" }
+        ]
+      },
+      {
+        "name": "Github镜像",
+        "links": [
+          { "name": "https://gh.acofork.us.kg", "url": "https://gh.acofork.us.kg" }
+        ]
+      },
+      {
+        "name": "Docker镜像",
+        "links": [
+          { "name": "https://docker.acofork.us.kg", "url": "https://docker.acofork.us.kg" }
+        ]
+      },
+      {
+        "name": "GHCR镜像",
+        "links": [
+          { "name": "https://ghcr.acofork.us.kg", "url": "https://ghcr.acofork.us.kg" }
+        ]
+      }
+    ]
+  }
+  
