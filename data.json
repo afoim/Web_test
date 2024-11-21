@@ -4,7 +4,7 @@
       {
         "name": "博客",
         "links": [
-          { "name": "Cloudflare Pages", "url": "https://acofork.us.kg" },
+          { "name": "Cloudflare Pages", "url": "https://blog.acofork.us.kg" },
           { "name": "Fleek", "url": "https://fleek-blog.acofork.us.kg" },
           { "name": "Vercel", "url": "https://vercel-blog.acofork.us.kg" },
           { "name": "Github Pages", "url": "https://github-blog.acofork.us.kg" }
