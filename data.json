@@ -3,6 +3,7 @@
       {
         "name": "博客",
         "links": [
+          { "name": "智能网关", "url": "https://smart.acofork.us.kg" },
           { "name": "Cloudflare Pages", "url": "https://blog.acofork.us.kg" },
           { "name": "Fleek", "url": "https://fleek-blog.acofork.us.kg" },
           { "name": "Vercel", "url": "https://vercel-blog.acofork.us.kg" },
