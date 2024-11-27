@@ -7,9 +7,9 @@
           { "name": "Fleek", "url": "https://fleek-blog.acofork.us.kg" },
           { "name": "Vercel", "url": "https://vercel-blog.acofork.us.kg" },
           { "name": "Github Pages", "url": "https://github-blog.acofork.us.kg" },
-          { "name": "TencentCloud EdgeOne", "url": "tencentcloud-blog.acofork.us.kg" },
-          { "name": "Render", "url": "render-blog.acofork.us.kg" },
-          { "name": "Surge", "url": "acofork-blog.surge.sh" }
+          { "name": "TencentCloud EdgeOne", "url": "https://tencentcloud-blog.acofork.us.kg" },
+          { "name": "Render", "url": "https://render-blog.acofork.us.kg" },
+          { "name": "Surge", "url": "https://acofork-blog.surge.sh" }
         ]
       },
       {
